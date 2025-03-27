@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Notes App</title>
+    <style>
+        :root {
+            --bg-color: #1e1e2f;
+            --text-color: #ffffff;
+            --note-bg: #2a2a3d;
+            --button-bg: #8a2be2;
+            --border-color: #444;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        .menu-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: white;
+        }
+
+        .menu-dropdown {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 20px;
+            background: var(--note-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+        }
+
+        .menu-dropdown button {
+            display: block;
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .add-note-btn {
+            background: var(--button-bg);
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .add-note-btn:hover {
+            background: #6a1bb6;
+        }
+
+        .note-box {
+            display: none;
+            background: var(--note-bg);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <button class="menu-button" onclick="toggleMenu()">☰</button>
+    <div class="menu-dropdown" id="menuDropdown">
+        <button onclick="alert('Settings Clicked')">Settings</button>
+        <button onclick="alert('Help Clicked')">Help</button>
+        <button onclick="alert('About Clicked')">About</button>
+    </div>
+    
+    <div class="container">
+        <button class="add-note-btn" onclick="showNoteBox()">Add Note</button>
+        <div class="note-box" id="noteBox">
+            <input type="text" id="noteTitle" placeholder="Title">
+            <textarea id="noteContent" placeholder="Write your note..."></textarea>
+            <input type="password" id="notePassword" placeholder="Set Password (Optional)">
+            <button class="save-btn" onclick="saveNote()">Save</button>
+            <button class="delete-btn" onclick="deleteNote()">Delete</button>
+            <button class="password-btn" onclick="togglePassword()">Show/Hide Password</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            let menu = document.getElementById("menuDropdown");
+            menu.style.display = menu.style.display === "block" ? "none" : "block";
+        }
+
+        function showNoteBox() {
+            document.getElementById("noteBox").style.display = "block";
+        }
+
+        function saveNote() {
+            let title = document.getElementById("noteTitle").value;
+            let content = document.getElementById("noteContent").value;
+            let password = document.getElementById("notePassword").value;
+            if (title.trim() === "" || content.trim() === "") return;
+            alert("Note saved successfully!");
+            document.getElementById("noteBox").style.display = "none";
+        }
+
+        function deleteNote() {
+            document.getElementById("noteTitle").value = "";
+            document.getElementById("noteContent").value = "";
+            document.getElementById("notePassword").value = "";
+            alert("Note deleted!");
+        }
+
+        function togglePassword() {
+            let passwordField = document.getElementById("notePassword");
+            passwordField.type = passwordField.type === "password" ? "text" : "password";
+        }
+    </script>
+</body>
+</html>
